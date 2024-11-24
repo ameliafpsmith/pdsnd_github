@@ -6,26 +6,30 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+# Function Definitions
 def get_filters():
-    """
-    Asks user to specify a city, month, and day to analyze.
-
-    Returns:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
-    """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-
-
-    # get user input for month (all, january, february, ... , june)
-
-
-    # get user input for day of week (all, monday, tuesday, ... sunday)
-
-
-    print('-'*40)
+    while True:
+        city = input("Which city would you like to explore - Chicago, New York City, or Washington? ").lower().strip()
+        if city in CITY_DATA:
+            break
+        else:
+            print("Invalid city. Please enter 'Chicago', 'New York City', or 'Washington'.")
+    
+    while True:
+        month = input("Which month - January, February, March, April, May, June, or 'all' to apply no filter? ").lower().strip()
+        if month in ['january', 'february', 'march', 'april', 'may', 'june', 'all']:
+            break
+        else:
+            print("Invalid month. Please enter one of the following: January, February, March, April, May, June, or 'all'.")
+    
+    while True:
+        day = input("Which day - Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, or 'all' to apply no filter? ").lower().strip()
+        if day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']:
+            break
+        else:
+            print("Invalid day. Please enter one of the following: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, or 'all'.")
+    
     return city, month, day
 
 
@@ -46,22 +50,17 @@ def load_data(city, month, day):
 
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
-
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
-    # display the most common month
-
-
-    # display the most common day of week
-
-
-    # display the most common start hour
-
+    most_common_month = df['month'].mode()[0].title()
+    print(f"Most Common Month: {most_common_month}")
+    most_common_day = df['day_of_week'].mode()[0].title()
+    print(f"Most Common Day: {most_common_day}")
+    most_common_hour = df['hour'].mode()[0]
+    print(f"Most Common Hour: {most_common_hour}")
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
 
 
 def station_stats(df):
